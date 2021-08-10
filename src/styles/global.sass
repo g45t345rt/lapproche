@@ -1,0 +1,42 @@
+@use "variables" as v
+
+h1, h2, h3, h4, h5, h6
+  margin: 0
+
+p
+  margin: 0
+
+body
+  font-family: v.$font-family
+  font-size: clamp(16px, 2vw, 22px)
+  color: v.$text-color
+  background-color: v.$body-background-color
+  padding: 1em
+  overflow-y: scroll
+
+.logo_lapproche
+  background: url(../images/logo_lapproche.png)
+  width: 100%
+  height: clamp(100px, 20vw, 150px)
+  background-size: contain
+  background-repeat: no-repeat
+  background-position: center
+  margin-top: 2em
+
+.page-switch
+  position: relative
+  display: flex
+  justify-content: center
+
+.page-switch > div
+  position: absolute
+  padding-bottom: 10em
+  max-width: 900px
+
+.navigation
+  padding: .5em
+  background-color: #ececec
+  border-radius: 5px
+  
+  a
+    color: v.$blue-color

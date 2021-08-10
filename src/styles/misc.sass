@@ -1,0 +1,18 @@
+@use "variables" as v
+
+.scaleUp
+  transform: scale(1.02)
+  transition: transform .2s
+
+.progress
+  height: 10px
+  background-color: #f3f3f3
+  border-radius: 5px
+
+  .progress-value
+    height: 100%
+    background-color: v.$blue-color
+    border-radius: 5px
+
+.small-block
+  transform: scale(.8)

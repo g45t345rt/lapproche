@@ -1,0 +1,51 @@
+@use "variables" as v
+
+%icon
+  mask-size: contain
+  mask-repeat: no-repeat
+  mask-position: center
+  display: inline-block
+  background-color: #c1c1c1
+  width: clamp(20px, 3vw, 30px)
+  height: clamp(20px, 3vw, 30px)
+
+.icon-tools
+  @extend %icon
+  mask-image: url("../images/tools-svgrepo-com.svg")
+
+.icon-delete
+  @extend %icon
+  mask-image: url("../images/delete-svgrepo-com.svg")
+
+.icon-arrow-right
+  @extend %icon
+  mask-image: url("../images/arrow-right-r-svgrepo-com.svg")
+
+.icon-info
+  @extend %icon
+  mask-image: url("../images/info-svgrepo-com.svg")
+  
+.icon-note
+  @extend %icon
+  mask-image: url("../images/note-svgrepo-com.svg")
+
+.icon-notes
+  @extend %icon
+  mask-image: url("../images/notes-note-svgrepo-com.svg")
+
+.icon-button
+  cursor: pointer
+  &:hover
+    transform: scale(1.1)
+    transition: transform .2s
+
+.icon-white
+  background-color: white
+
+.icon-hover-red
+  &:hover
+    background-color: v.$red-color
+
+.icon-hover-blue
+  &:hover
+    background-color: v.$blue-color
