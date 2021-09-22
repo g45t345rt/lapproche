@@ -8,9 +8,6 @@ const postcssPresetEnv = require('postcss-preset-env')
 const http = require('http')
 const EventEmitter = require('events')
 const aliasPlugin = require('esbuild-plugin-alias')
-const postcssInlineSvg = require('postcss-inline-svg')
-const postcssImport = require("postcss-import")
-const postcssUrl = require("postcss-url")
 
 const argv = yargs(hideBin(process.argv)).argv
 const isProduction = argv.env === 'production'

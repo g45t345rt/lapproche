@@ -4,6 +4,8 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    "moduleResolution": "Node",
+    "target": "ES2021",
     "paths": {
       "components/*": [
         "./src/components/*"
