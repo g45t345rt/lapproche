@@ -7,8 +7,10 @@ import { prefix, titles, choices } from './metadata'
 import Navigation from 'components/Navigation'
 
 export default () => {
+  const topRef = React.useRef()
   const [step, setStep] = React.useState('start')
   const [result, setResult] = React.useState()
+  const [sum, setSum] = React.useState()
 
   return <div className="grid-row">
     <Navigation />
@@ -27,21 +29,29 @@ export default () => {
         du temps au cours des deux dernières semaines, cochez la case 3.
       </p>
     </div>}
-    {step === 'start' && <button type="button" onClick={() => setStep('answer')} className="home-blue-button">Evaluer mon bien-etre maintenant!</button>}
+    {step === 'start' && <button type="button" onClick={() => setStep('answer')} className="home-blue-button font12">
+      <i className="icon-play icon-white" />
+      <div>Commencer l'auto-évaluation de mon bien-être</div>
+    </button>}
+    {step === 'answer' && <h1 ref={topRef}>{prefix}</h1>}
     {step === 'answer' && <Steps
-      prefix={prefix}
       titles={titles}
       choices={choices}
+      onStep={() => {
+        window.scrollTo(0, topRef.current.offsetTop)
+      }}
       onComplete={(anwsers) => {
         setStep('done')
         const sum = anwsers.reduce((t, v) => t += v, 0)
         setResult(sum / 25)
+        setSum(sum)
       }}
     />}
     {step === 'done' && <div className="grid-row">
       <h1>Merci d'avoir complete l'auto evaluation!</h1>
       <div className="card grid-row">
         <h2>Interprétation des résultats</h2>
+        <div>{sum} / 25</div>
         {result >= .5 && <div className="good-result">Suite à tes réponses, il semblerait que tu présentes un bon état de bien-être.</div>}
         {result < .5 && <div className="bad-result">Suite à tes réponses, il semblerait que tu éprouves de la difficulté pour ce qui est de ton bien-être</div>}
         <p>
@@ -98,7 +108,10 @@ export default () => {
           </li>
         </ul>
       </div>
-      <button type="button" onClick={() => setStep('answer')} className="home-blue-button">Recommencer l'auto evaluation</button>
+      <button type="button" onClick={() => setStep('answer')} className="home-blue-button">
+        <i className="icon-white icon-replay" />
+        <div>Recommencer l'auto evaluation</div>
+      </button>
     </div>
     }
   </div >

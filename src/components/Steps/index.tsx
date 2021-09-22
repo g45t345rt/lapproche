@@ -10,20 +10,21 @@ type Choice = {
 }
 
 type StepsProps = {
-  prefix?: string
   titles: string[]
   choices: Choice[]
   onComplete: (answers: number[]) => void
+  onStep: () => void
 }
 
 export default (props: StepsProps) => {
   const [step, setStep] = React.useState(0)
   const [answers, setAnswers] = React.useState([])
-  const { prefix, titles, choices, onComplete } = props
+  const { titles, choices, onComplete, onStep } = props
   const titleRef = React.useRef()
 
   const goback = React.useCallback(() => {
     if (step > 0) setStep(step - 1)
+    if (typeof onStep === 'function') onStep()
   }, [step])
 
   const choose = React.useCallback((answer) => {
@@ -36,6 +37,7 @@ export default (props: StepsProps) => {
     else setAnswers([...answers, answer])
 
     //if (step >= titles.length - 1) return
+    if (typeof onStep === 'function') onStep()
     setStep(step + 1)
   }, [step, answers])
 
@@ -54,7 +56,6 @@ export default (props: StepsProps) => {
 
   const title = titles[step]
   return <div className="grid-row">
-    <h1>{prefix}</h1>
     <h2 ref={titleRef} className="steps-title">{title}</h2>
     <ProgressSteps steps={titles.length} currentStep={step} />
     <div className="grid-row">

@@ -29,8 +29,8 @@ export default () => {
   const paths = createPaths(location.pathname)
   return <div className="navigation">
     {paths.map((path, i) => {
-      if (i === paths.length-1) return <span>{links[path]}</span>
-      return <Link to={path}>{links[path]}</Link>
+      if (i === paths.length - 1) return <span key={path}>{links[path]}</span>
+      return <Link to={path} key={path}>{links[path]}</Link>
     }).reduce((p, c) => [p, ' / ', c])}
   </div>
 }

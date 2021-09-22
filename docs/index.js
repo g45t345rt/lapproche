@@ -24469,9 +24469,12 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       className: "navigation"
     }, paths.map((path, i) => {
       if (i === paths.length - 1)
-        return /* @__PURE__ */ import_react7.default.createElement("span", null, links[path]);
+        return /* @__PURE__ */ import_react7.default.createElement("span", {
+          key: path
+        }, links[path]);
       return /* @__PURE__ */ import_react7.default.createElement(Link, {
-        to: path
+        to: path,
+        key: path
       }, links[path]);
     }).reduce((p, c) => [p, " / ", c]));
   };
@@ -24584,7 +24587,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     }, Array.from({ length: steps }).map((_, index2) => {
       const classes = (0, import_classnames.default)("progress-steps", { "done": index2 < currentStep });
       return /* @__PURE__ */ import_react12.default.createElement("div", {
-        className: classes
+        className: classes,
+        key: index2
       });
     }));
   };
@@ -24593,11 +24597,13 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   var Steps_default = (props) => {
     const [step, setStep] = import_react13.default.useState(0);
     const [answers, setAnswers] = import_react13.default.useState([]);
-    const { prefix: prefix3, titles: titles2, choices: choices2, onComplete } = props;
+    const { titles: titles2, choices: choices2, onComplete, onStep } = props;
     const titleRef = import_react13.default.useRef();
     const goback = import_react13.default.useCallback(() => {
       if (step > 0)
         setStep(step - 1);
+      if (typeof onStep === "function")
+        onStep();
     }, [step]);
     const choose = import_react13.default.useCallback((answer) => {
       const title2 = titleRef.current;
@@ -24607,6 +24613,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         setAnswers(answers);
       } else
         setAnswers([...answers, answer]);
+      if (typeof onStep === "function")
+        onStep();
       setStep(step + 1);
     }, [step, answers]);
     import_react13.default.useEffect(() => {
@@ -24623,7 +24631,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     const title = titles2[step];
     return /* @__PURE__ */ import_react13.default.createElement("div", {
       className: "grid-row"
-    }, /* @__PURE__ */ import_react13.default.createElement("h1", null, prefix3), /* @__PURE__ */ import_react13.default.createElement("h2", {
+    }, /* @__PURE__ */ import_react13.default.createElement("h2", {
       ref: titleRef,
       className: "steps-title"
     }, title), /* @__PURE__ */ import_react13.default.createElement(ProgressSteps_default, {
@@ -24668,8 +24676,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
 
   // src/pages/tools/MentalHealth/WellBeing/index.tsx
   var WellBeing_default = () => {
+    const topRef = import_react14.default.useRef();
     const [step, setStep] = import_react14.default.useState("start");
     const [result, setResult] = import_react14.default.useState();
+    const [sum, setSum] = import_react14.default.useState();
     return /* @__PURE__ */ import_react14.default.createElement("div", {
       className: "grid-row"
     }, /* @__PURE__ */ import_react14.default.createElement(Navigation_default, null), step === "start" && /* @__PURE__ */ import_react14.default.createElement("h1", null, "Auto-\xE9valuation de mon bien-\xEAtre"), step === "start" && /* @__PURE__ */ import_react14.default.createElement("p", null, "Voici un outil en cinq points provenant de l\u2019OMS qui te permettra d\u2019\xE9valuer ton bien-\xEAtre. Veuillez indiquer, pour chacune des cinq affirmations, laquelle se rapproche le plus de ce que vous avez ressenti au cours des deux derni\xE8res semaines. Notez que le chiffre est proportionnel au bien-\xEAtre."), step === "answer" && /* @__PURE__ */ import_react14.default.createElement("div", {
@@ -24679,21 +24689,28 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     }), /* @__PURE__ */ import_react14.default.createElement("p", null, "Si vous vous \xEAtes senti(e) bien et de bonne humeur plus de la moiti\xE9 du temps au cours des deux derni\xE8res semaines, cochez la case 3.")), step === "start" && /* @__PURE__ */ import_react14.default.createElement("button", {
       type: "button",
       onClick: () => setStep("answer"),
-      className: "home-blue-button"
-    }, "Evaluer mon bien-etre maintenant!"), step === "answer" && /* @__PURE__ */ import_react14.default.createElement(Steps_default, {
-      prefix: prefix2,
+      className: "home-blue-button font12"
+    }, /* @__PURE__ */ import_react14.default.createElement("i", {
+      className: "icon-play icon-white"
+    }), /* @__PURE__ */ import_react14.default.createElement("div", null, "Commencer l'auto-\xE9valuation de mon bien-\xEAtre")), step === "answer" && /* @__PURE__ */ import_react14.default.createElement("h1", {
+      ref: topRef
+    }, prefix2), step === "answer" && /* @__PURE__ */ import_react14.default.createElement(Steps_default, {
       titles,
       choices,
+      onStep: () => {
+        window.scrollTo(0, topRef.current.offsetTop);
+      },
       onComplete: (anwsers) => {
         setStep("done");
-        const sum = anwsers.reduce((t, v) => t += v, 0);
-        setResult(sum / 25);
+        const sum2 = anwsers.reduce((t, v) => t += v, 0);
+        setResult(sum2 / 25);
+        setSum(sum2);
       }
     }), step === "done" && /* @__PURE__ */ import_react14.default.createElement("div", {
       className: "grid-row"
     }, /* @__PURE__ */ import_react14.default.createElement("h1", null, "Merci d'avoir complete l'auto evaluation!"), /* @__PURE__ */ import_react14.default.createElement("div", {
       className: "card grid-row"
-    }, /* @__PURE__ */ import_react14.default.createElement("h2", null, "Interpr\xE9tation des r\xE9sultats"), result >= 0.5 && /* @__PURE__ */ import_react14.default.createElement("div", {
+    }, /* @__PURE__ */ import_react14.default.createElement("h2", null, "Interpr\xE9tation des r\xE9sultats"), /* @__PURE__ */ import_react14.default.createElement("div", null, sum, " / 25"), result >= 0.5 && /* @__PURE__ */ import_react14.default.createElement("div", {
       className: "good-result"
     }, "Suite \xE0 tes r\xE9ponses, il semblerait que tu pr\xE9sentes un bon \xE9tat de bien-\xEAtre."), result < 0.5 && /* @__PURE__ */ import_react14.default.createElement("div", {
       className: "bad-result"
@@ -24733,7 +24750,9 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       type: "button",
       onClick: () => setStep("answer"),
       className: "home-blue-button"
-    }, "Recommencer l'auto evaluation")));
+    }, /* @__PURE__ */ import_react14.default.createElement("i", {
+      className: "icon-white icon-replay"
+    }), /* @__PURE__ */ import_react14.default.createElement("div", null, "Recommencer l'auto evaluation"))));
   };
 
   // src/pages/Tools/MentalHealth/index.tsx

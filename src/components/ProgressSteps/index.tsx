@@ -8,7 +8,7 @@ export default (props) => {
   return <div className="grid-column">
     {Array.from({ length: steps }).map((_, index) => {
       const classes = classnames('progress-steps', { 'done': index < currentStep })
-      return <div className={classes} />
+      return <div className={classes} key={index} />
     })}
   </div>
 }

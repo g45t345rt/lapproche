@@ -4,17 +4,16 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "moduleResolution": "Node",
-    "target": "ES2021",
+    "baseUrl": "src",
     "paths": {
       "components/*": [
-        "./src/components/*"
+        "components/*"
       ],
       "hooks/*": [
-        "./src/hooks/*"
+        "hooks/*"
       ],
       "pages/*": [
-        "./src/pages/*"
+        "pages/*"
       ],
     }
   },
