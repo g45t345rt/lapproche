@@ -49,7 +49,7 @@ esbuild.build({
   minify: isProduction,
   sourcemap: !isProduction,
   platform: 'browser',
-  outdir: isProduction ? 'docs' : 'build',
+  outdir: isProduction ? 'build' : 'docs',
   watch: watchMode,
   loader: {
     '.svg': 'dataurl',
