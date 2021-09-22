@@ -44,12 +44,15 @@ const watchMode = isProduction ? false : {
 }
 
 esbuild.build({
+  define: {
+    ['process.env.NODE_ENV']: `"${env}"`
+  },
   entryPoints: ['src/index.tsx'],
   bundle: true,
   minify: isProduction,
   sourcemap: !isProduction,
   platform: 'browser',
-  outdir: isProduction ? 'build' : 'docs',
+  outdir: isProduction ? 'docs' : 'build',
   watch: watchMode,
   loader: {
     '.svg': 'dataurl',
