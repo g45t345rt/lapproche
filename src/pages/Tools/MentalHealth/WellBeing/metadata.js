@@ -9,10 +9,10 @@ export const titles = [
 ]
 
 export const choices = [
-  "Tout le temps",
-  "La plupart du temps",
-  "Plus de la motié du temps",
-  "Moins de la moitié du temps",
-  "De temps en temps",
-  "Jamais"
+  { text: "Tout le temp", value: 5 },
+  { text: "La plupart du temps", value: 4 },
+  { text: "Plus de la motié du temps", value: 3 },
+  { text: "Moins de la moitié du temps", value: 2 },
+  { text: "De temps en temps", value: 1 },
+  { text: "Jamais", value: 0 },
 ]

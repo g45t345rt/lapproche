@@ -9,12 +9,16 @@ dayjs.extend(localizedFormat)
 import 'normalize.css'
 import './styles/index.sass'
 
+// Pages
 import Home from 'pages/Home'
 import Tools from 'pages/tools'
 import NotFound from 'pages/NotFound'
 import WellBeing from 'pages/tools/MentalHealth/WellBeing'
 import { renderRoutes, routes } from './routes'
 import MentalHealth from 'pages/Tools/MentalHealth'
+
+// Hooks
+import scrollTopOnRouteChange from 'hooks/scrollTopOnRouteChange'
 
 const anim = {
   atEnter: { opacity: 0 },
@@ -24,6 +28,8 @@ const anim = {
 }
 
 export default () => {
+  scrollTopOnRouteChange()
+
   return <div>
     <AnimatedSwitch {...anim}>
       <Route path="/" exact component={Home} />

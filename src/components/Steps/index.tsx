@@ -4,10 +4,15 @@ import ProgressSteps from '../ProgressSteps'
 
 import './index.sass'
 
+type Choice = {
+  text: string
+  value: number
+}
+
 type StepsProps = {
   prefix?: string
   titles: string[]
-  choices: string[]
+  choices: Choice[]
   onComplete: (answers: number[]) => void
 }
 
@@ -54,9 +59,10 @@ export default (props: StepsProps) => {
     <ProgressSteps steps={titles.length} currentStep={step} />
     <div className="grid-row">
       {choices.map((choice, index) => {
-        const point = Math.abs(index - choices.length + 1)
-        return <button type="button" className="steps-button" key={index} onClick={() => choose(index)}>
-          <div className="text">{choice} - {point}</div>
+        const { text, value } = choice
+
+        return <button type="button" className="steps-button" key={index} onClick={() => choose(value)}>
+          <div className="text">{text} - {value}</div>
         </button>
       })}
     </div>

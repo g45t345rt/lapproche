@@ -20,6 +20,7 @@
     "react-router-transition": "^2.1.0"
   },
   "devDependencies": {
+    "@types/node": "^16.9.6",
     "autoprefixer": "^10.3.1",
     "esbuild": "^0.12.17",
     "esbuild-plugin-alias": "^0.1.2",

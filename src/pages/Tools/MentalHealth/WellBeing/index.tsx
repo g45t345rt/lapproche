@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import TableSelect from 'components/TableSelect'
 import Steps from 'components/Steps'
 
@@ -7,6 +8,8 @@ import Navigation from 'components/Navigation'
 
 export default () => {
   const [step, setStep] = React.useState('start')
+  const [result, setResult] = React.useState()
+
   return <div className="grid-row">
     <Navigation />
     {step === 'start' && <h1>Auto-évaluation de mon bien-être</h1>}
@@ -25,27 +28,36 @@ export default () => {
       </p>
     </div>}
     {step === 'start' && <button type="button" onClick={() => setStep('answer')} className="home-blue-button">Evaluer mon bien-etre maintenant!</button>}
-    {/*<TableSelect
-      columns={["Au cours des 2 dernières semaines…", ...choices]}
-      rows={titles}
-    />*/}
     {step === 'answer' && <Steps
       prefix={prefix}
       titles={titles}
       choices={choices}
-      onComplete={() => setStep('done')}
+      onComplete={(anwsers) => {
+        setStep('done')
+        const sum = anwsers.reduce((t, v) => t += v, 0)
+        setResult(sum / 25)
+      }}
     />}
     {step === 'done' && <div className="grid-row">
       <h1>Merci d'avoir complete l'auto evaluation!</h1>
       <div className="card grid-row">
         <h2>Interprétation des résultats</h2>
-        <div className="good-result">Suite à tes réponses, il semblerait que tu présentes un bon état de bien-être.</div>
+        {result >= .5 && <div className="good-result">Suite à tes réponses, il semblerait que tu présentes un bon état de bien-être.</div>}
+        {result < .5 && <div className="bad-result">Suite à tes réponses, il semblerait que tu éprouves de la difficulté pour ce qui est de ton bien-être</div>}
         <p>
           N’oublie pas, il ne s’agit pas d’un outil diagnostique. Si tu désires en savoir plus ou si tu es inquiet
-          au sujet de ta santé, n’hésite pas à te référer à la section Ressources ou à consulter un
+          au sujet de ta santé, n’hésite pas à te référer à la section <Link to={{ hash: "#ressources", }}>Ressources</Link> ou à consulter un
           professionnel.
         </p>
       </div>
+      {result < .5 && <div className="card-dark font09 grid-column">
+        <i className="icon-exclamation-mark" />
+        <p>
+          Si tu as l’impression d’être en crise, que tu as l’intention de te faire du mal ou de faire du mal à quelqu’un
+          d’autre, visite ce site web pour connaître le numéro de téléphone du centre de crise de ta région et obtenir
+          de l’aide : <a href="https://www.centredecrise.ca/listecentres">https://www.centredecrise.ca/listecentres</a>
+        </p>
+      </div>}
       <div className="card grid-row">
         <h2>Mon espace de réflexion</h2>
         <p>Voici des questions pour t’aider à poursuivre ta réflexion :</p>
@@ -56,16 +68,38 @@ export default () => {
         <textarea rows={5} placeholder="Écrit ce que tu penses ici..." />
       </div>
       <div className="card grid-row">
-        <h2>Ressources</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Cras venenatis odio non ipsum luctus, vel pellentesque turpis venenatis.
-          Cras eu tincidunt metus. Quisque id ultricies nisl.
-          Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed eu tortor at turpis rutrum pretium.
-          Aenean eu leo pretium, luctus leo eget, blandit risus.
-          Nunc rutrum maximus ligula, ut venenatis nibh fermentum sit amet.
-          Duis cursus metus a nisl fermentum porttitor. </p>
+        <h2 id="ressources">Ressources</h2>
+        <p>Si tu désires en connaître plus sur ton état de bien-être, voici des liens vers d’autres questionnaires qui pourraient être utiles :</p>
+        <ul>
+          <li>
+            <a href="https://www.esantementale.ca/index.php?m=survey&ID=54" target="_blank">
+              Questionnaire : anxiété enfant/adolescents (SCARED-5)
+            </a>
+          </li>
+          <li>
+            <a href="https://jeunessejecoute.ca/information/questionnaire-reflexions-a-propos-de-lanxiete/" target="_blank">
+              Questionnaire : réflexions à propos de l’anxiété
+            </a>
+          </li>
+          <li>
+            <a href="https://cmha.ca/fr/trouver-de-linfo/sante-mentale/evaluer-sa-sante-mentale/quel-est-votre-indicateur-de-stress/" target="_blank">
+              Questionnaire : identifier tes Indicateurs de stress
+            </a>
+          </li>
+          <li>
+            <a href="http://psychologie-ge.ch/Test_Anxiete_Etat_Spielberger.html" target="_blank">
+              Questionnaire : échelle d’anxiété état (situationnelle) pour évaluer ton niveau d’anxiété au moment présent
+            </a>
+          </li>
+          <li>
+            <a href="http://psychologie-ge.ch/Test_Anxiete_Trait_Spielberger.html" target="_blank">
+              Questionnaire : échelle d’anxiété trait pour évaluer ton niveau d’anxiété dans la vie en générale
+            </a>
+          </li>
+        </ul>
       </div>
       <button type="button" onClick={() => setStep('answer')} className="home-blue-button">Recommencer l'auto evaluation</button>
-    </div>}
-  </div>
+    </div>
+    }
+  </div >
 }

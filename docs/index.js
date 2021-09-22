@@ -2440,11 +2440,11 @@
       if (true) {
         (function() {
           "use strict";
-          var React18 = require_react();
+          var React19 = require_react();
           var _assign = require_object_assign();
           var Scheduler = require_scheduler();
           var tracing = require_tracing();
-          var ReactSharedInternals = React18.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React19.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function warn(format) {
             {
               for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -2476,7 +2476,7 @@
               Function.prototype.apply.call(console[level], console, argsWithFormat);
             }
           }
-          if (!React18) {
+          if (!React19) {
             {
               throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
             }
@@ -3692,7 +3692,7 @@
           var didWarnInvalidChild = false;
           function flattenChildren(children) {
             var content = "";
-            React18.Children.forEach(children, function(child) {
+            React19.Children.forEach(children, function(child) {
               if (child == null) {
                 return;
               }
@@ -3703,7 +3703,7 @@
           function validateProps(element, props) {
             {
               if (typeof props.children === "object" && props.children !== null) {
-                React18.Children.forEach(props.children, function(child) {
+                React19.Children.forEach(props.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -10896,7 +10896,7 @@
           }
           var fakeInternalInstance = {};
           var isArray = Array.isArray;
-          var emptyRefsObject = new React18.Component().refs;
+          var emptyRefsObject = new React19.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -22461,7 +22461,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   });
 
   // src/index.tsx
-  var import_react17 = __toModule(require_react());
+  var import_react18 = __toModule(require_react());
   var import_react_dom = __toModule(require_react_dom());
 
   // node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
@@ -24234,7 +24234,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   var ariaCurrentType;
 
   // src/app.tsx
-  var import_react16 = __toModule(require_react());
+  var import_react17 = __toModule(require_react());
 
   // node_modules/react-router-transition/lib/index.js
   var import_react4 = __toModule(require_react());
@@ -24632,15 +24632,15 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     }), /* @__PURE__ */ import_react13.default.createElement("div", {
       className: "grid-row"
     }, choices2.map((choice, index2) => {
-      const point = Math.abs(index2 - choices2.length + 1);
+      const { text, value } = choice;
       return /* @__PURE__ */ import_react13.default.createElement("button", {
         type: "button",
         className: "steps-button",
         key: index2,
-        onClick: () => choose(index2)
+        onClick: () => choose(value)
       }, /* @__PURE__ */ import_react13.default.createElement("div", {
         className: "text"
-      }, choice, " - ", point));
+      }, text, " - ", value));
     })), /* @__PURE__ */ import_react13.default.createElement("button", {
       type: "button",
       className: "button",
@@ -24658,17 +24658,18 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     "Ma vie quotidienne a \xE9t\xE9 remplie de choses int\xE9ressantes"
   ];
   var choices = [
-    "Tout le temps",
-    "La plupart du temps",
-    "Plus de la moti\xE9 du temps",
-    "Moins de la moiti\xE9 du temps",
-    "De temps en temps",
-    "Jamais"
+    { text: "Tout le temp", value: 5 },
+    { text: "La plupart du temps", value: 4 },
+    { text: "Plus de la moti\xE9 du temps", value: 3 },
+    { text: "Moins de la moiti\xE9 du temps", value: 2 },
+    { text: "De temps en temps", value: 1 },
+    { text: "Jamais", value: 0 }
   ];
 
   // src/pages/tools/MentalHealth/WellBeing/index.tsx
   var WellBeing_default = () => {
     const [step, setStep] = import_react14.default.useState("start");
+    const [result, setResult] = import_react14.default.useState();
     return /* @__PURE__ */ import_react14.default.createElement("div", {
       className: "grid-row"
     }, /* @__PURE__ */ import_react14.default.createElement(Navigation_default, null), step === "start" && /* @__PURE__ */ import_react14.default.createElement("h1", null, "Auto-\xE9valuation de mon bien-\xEAtre"), step === "start" && /* @__PURE__ */ import_react14.default.createElement("p", null, "Voici un outil en cinq points provenant de l\u2019OMS qui te permettra d\u2019\xE9valuer ton bien-\xEAtre. Veuillez indiquer, pour chacune des cinq affirmations, laquelle se rapproche le plus de ce que vous avez ressenti au cours des deux derni\xE8res semaines. Notez que le chiffre est proportionnel au bien-\xEAtre."), step === "answer" && /* @__PURE__ */ import_react14.default.createElement("div", {
@@ -24683,21 +24684,52 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       prefix: prefix2,
       titles,
       choices,
-      onComplete: () => setStep("done")
+      onComplete: (anwsers) => {
+        setStep("done");
+        const sum = anwsers.reduce((t, v) => t += v, 0);
+        setResult(sum / 25);
+      }
     }), step === "done" && /* @__PURE__ */ import_react14.default.createElement("div", {
       className: "grid-row"
     }, /* @__PURE__ */ import_react14.default.createElement("h1", null, "Merci d'avoir complete l'auto evaluation!"), /* @__PURE__ */ import_react14.default.createElement("div", {
       className: "card grid-row"
-    }, /* @__PURE__ */ import_react14.default.createElement("h2", null, "Interpr\xE9tation des r\xE9sultats"), /* @__PURE__ */ import_react14.default.createElement("div", {
+    }, /* @__PURE__ */ import_react14.default.createElement("h2", null, "Interpr\xE9tation des r\xE9sultats"), result >= 0.5 && /* @__PURE__ */ import_react14.default.createElement("div", {
       className: "good-result"
-    }, "Suite \xE0 tes r\xE9ponses, il semblerait que tu pr\xE9sentes un bon \xE9tat de bien-\xEAtre."), /* @__PURE__ */ import_react14.default.createElement("p", null, "N\u2019oublie pas, il ne s\u2019agit pas d\u2019un outil diagnostique. Si tu d\xE9sires en savoir plus ou si tu es inquiet au sujet de ta sant\xE9, n\u2019h\xE9site pas \xE0 te r\xE9f\xE9rer \xE0 la section Ressources ou \xE0 consulter un professionnel.")), /* @__PURE__ */ import_react14.default.createElement("div", {
+    }, "Suite \xE0 tes r\xE9ponses, il semblerait que tu pr\xE9sentes un bon \xE9tat de bien-\xEAtre."), result < 0.5 && /* @__PURE__ */ import_react14.default.createElement("div", {
+      className: "bad-result"
+    }, "Suite \xE0 tes r\xE9ponses, il semblerait que tu \xE9prouves de la difficult\xE9 pour ce qui est de ton bien-\xEAtre"), /* @__PURE__ */ import_react14.default.createElement("p", null, "N\u2019oublie pas, il ne s\u2019agit pas d\u2019un outil diagnostique. Si tu d\xE9sires en savoir plus ou si tu es inquiet au sujet de ta sant\xE9, n\u2019h\xE9site pas \xE0 te r\xE9f\xE9rer \xE0 la section ", /* @__PURE__ */ import_react14.default.createElement(Link, {
+      to: { hash: "#ressources" }
+    }, "Ressources"), " ou \xE0 consulter un professionnel.")), result < 0.5 && /* @__PURE__ */ import_react14.default.createElement("div", {
+      className: "card-dark font09 grid-column"
+    }, /* @__PURE__ */ import_react14.default.createElement("i", {
+      className: "icon-exclamation-mark"
+    }), /* @__PURE__ */ import_react14.default.createElement("p", null, "Si tu as l\u2019impression d\u2019\xEAtre en crise, que tu as l\u2019intention de te faire du mal ou de faire du mal \xE0 quelqu\u2019un d\u2019autre, visite ce site web pour conna\xEEtre le num\xE9ro de t\xE9l\xE9phone du centre de crise de ta r\xE9gion et obtenir de l\u2019aide : ", /* @__PURE__ */ import_react14.default.createElement("a", {
+      href: "https://www.centredecrise.ca/listecentres"
+    }, "https://www.centredecrise.ca/listecentres"))), /* @__PURE__ */ import_react14.default.createElement("div", {
       className: "card grid-row"
     }, /* @__PURE__ */ import_react14.default.createElement("h2", null, "Mon espace de r\xE9flexion"), /* @__PURE__ */ import_react14.default.createElement("p", null, "Voici des questions pour t\u2019aider \xE0 poursuivre ta r\xE9flexion :"), /* @__PURE__ */ import_react14.default.createElement("ul", null, /* @__PURE__ */ import_react14.default.createElement("li", null, "Suite \xE0 tes r\xE9ponses et au r\xE9sultat que tu as obtenu \xE0 ce questionnaire, qu\u2019est-ce qui te vient en t\xEAte?"), /* @__PURE__ */ import_react14.default.createElement("li", null, "Qu\u2019est-ce que tu en retiens ou qu\u2019est-ce que tu en conclus?")), /* @__PURE__ */ import_react14.default.createElement("textarea", {
       rows: 5,
       placeholder: "\xC9crit ce que tu penses ici..."
     })), /* @__PURE__ */ import_react14.default.createElement("div", {
       className: "card grid-row"
-    }, /* @__PURE__ */ import_react14.default.createElement("h2", null, "Ressources"), /* @__PURE__ */ import_react14.default.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras venenatis odio non ipsum luctus, vel pellentesque turpis venenatis. Cras eu tincidunt metus. Quisque id ultricies nisl. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed eu tortor at turpis rutrum pretium. Aenean eu leo pretium, luctus leo eget, blandit risus. Nunc rutrum maximus ligula, ut venenatis nibh fermentum sit amet. Duis cursus metus a nisl fermentum porttitor. ")), /* @__PURE__ */ import_react14.default.createElement("button", {
+    }, /* @__PURE__ */ import_react14.default.createElement("h2", {
+      id: "ressources"
+    }, "Ressources"), /* @__PURE__ */ import_react14.default.createElement("p", null, "Si tu d\xE9sires en conna\xEEtre plus sur ton \xE9tat de bien-\xEAtre, voici des liens vers d\u2019autres questionnaires qui pourraient \xEAtre utiles :"), /* @__PURE__ */ import_react14.default.createElement("ul", null, /* @__PURE__ */ import_react14.default.createElement("li", null, /* @__PURE__ */ import_react14.default.createElement("a", {
+      href: "https://www.esantementale.ca/index.php?m=survey&ID=54",
+      target: "_blank"
+    }, "Questionnaire : anxi\xE9t\xE9 enfant/adolescents (SCARED-5)")), /* @__PURE__ */ import_react14.default.createElement("li", null, /* @__PURE__ */ import_react14.default.createElement("a", {
+      href: "https://jeunessejecoute.ca/information/questionnaire-reflexions-a-propos-de-lanxiete/",
+      target: "_blank"
+    }, "Questionnaire : r\xE9flexions \xE0 propos de l\u2019anxi\xE9t\xE9")), /* @__PURE__ */ import_react14.default.createElement("li", null, /* @__PURE__ */ import_react14.default.createElement("a", {
+      href: "https://cmha.ca/fr/trouver-de-linfo/sante-mentale/evaluer-sa-sante-mentale/quel-est-votre-indicateur-de-stress/",
+      target: "_blank"
+    }, "Questionnaire : identifier tes Indicateurs de stress")), /* @__PURE__ */ import_react14.default.createElement("li", null, /* @__PURE__ */ import_react14.default.createElement("a", {
+      href: "http://psychologie-ge.ch/Test_Anxiete_Etat_Spielberger.html",
+      target: "_blank"
+    }, "Questionnaire : \xE9chelle d\u2019anxi\xE9t\xE9 \xE9tat (situationnelle) pour \xE9valuer ton niveau d\u2019anxi\xE9t\xE9 au moment pr\xE9sent")), /* @__PURE__ */ import_react14.default.createElement("li", null, /* @__PURE__ */ import_react14.default.createElement("a", {
+      href: "http://psychologie-ge.ch/Test_Anxiete_Trait_Spielberger.html",
+      target: "_blank"
+    }, "Questionnaire : \xE9chelle d\u2019anxi\xE9t\xE9 trait pour \xE9valuer ton niveau d\u2019anxi\xE9t\xE9 dans la vie en g\xE9n\xE9rale")))), /* @__PURE__ */ import_react14.default.createElement("button", {
       type: "button",
       onClick: () => setStep("answer"),
       className: "home-blue-button"
@@ -24737,6 +24769,18 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     }));
   };
 
+  // src/hooks/scrollTopOnRouteChange.tsx
+  var import_react16 = __toModule(require_react());
+  var scrollTopOnRouteChange_default = () => {
+    const location = useLocation();
+    import_react16.default.useEffect(() => {
+      const hashElement = document.getElementById(window.location.hash.replace("#", ""));
+      const top = hashElement ? hashElement.offsetTop : 0;
+      document.body.scrollTop = top;
+      document.documentElement.scrollTop = top;
+    }, [location]);
+  };
+
   // src/app.tsx
   import_dayjs2.default.extend(import_localizedFormat.default);
   var anim = {
@@ -24746,35 +24790,36 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     className: "page-switch"
   };
   var app_default = () => {
-    return /* @__PURE__ */ import_react16.default.createElement("div", null, /* @__PURE__ */ import_react16.default.createElement(AnimatedSwitch, {
+    scrollTopOnRouteChange_default();
+    return /* @__PURE__ */ import_react17.default.createElement("div", null, /* @__PURE__ */ import_react17.default.createElement(AnimatedSwitch, {
       ...anim
-    }, /* @__PURE__ */ import_react16.default.createElement(Route, {
+    }, /* @__PURE__ */ import_react17.default.createElement(Route, {
       path: "/",
       exact: true,
       component: Home_default
-    }), /* @__PURE__ */ import_react16.default.createElement(Route, {
+    }), /* @__PURE__ */ import_react17.default.createElement(Route, {
       path: "/outils",
       exact: true,
       component: tools_default
-    }), /* @__PURE__ */ import_react16.default.createElement(Route, {
+    }), /* @__PURE__ */ import_react17.default.createElement(Route, {
       path: "/outils/sante_mentale",
       exact: true,
       component: MentalHealth_default
-    }), /* @__PURE__ */ import_react16.default.createElement(Route, {
+    }), /* @__PURE__ */ import_react17.default.createElement(Route, {
       path: "/outils/sante_mentale/bien_etre",
       exact: true,
       component: WellBeing_default
-    }), /* @__PURE__ */ import_react16.default.createElement(Route, {
+    }), /* @__PURE__ */ import_react17.default.createElement(Route, {
       component: NotFound_default
     })));
   };
 
   // src/index.tsx
   var Client = () => {
-    return /* @__PURE__ */ import_react17.default.createElement(HashRouter, null, /* @__PURE__ */ import_react17.default.createElement(app_default, null));
+    return /* @__PURE__ */ import_react18.default.createElement(HashRouter, null, /* @__PURE__ */ import_react18.default.createElement(app_default, null));
   };
   var rootElement = document.getElementById("root");
-  import_react_dom.default.render(/* @__PURE__ */ import_react17.default.createElement(Client, null), rootElement);
+  import_react_dom.default.render(/* @__PURE__ */ import_react18.default.createElement(Client, null), rootElement);
   if (true) {
     const evtSource = new EventSource("http://localhost:5645");
     evtSource.addEventListener("refresh", () => {
