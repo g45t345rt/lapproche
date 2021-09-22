@@ -1,3 +1,5 @@
+export const prefix = "Au cours des 2 dernières semaines…"
+
 export const titles = [
   "Je me suis senti(e) bien et de bonne humeur",
   "Je me suis senti(e) calme et tranquille",

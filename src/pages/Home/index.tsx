@@ -26,7 +26,7 @@ export default () => {
         <SavedItem />
         <SavedItem />
       </div>
-      <button className="dim-button">Supprimer les sauvegardes</button>
+      <button type="button" className="dim-button">Supprimer les sauvegardes</button>
     </div>
   </div>
 }
