@@ -10,7 +10,8 @@ const EventEmitter = require('events')
 const aliasPlugin = require('esbuild-plugin-alias')
 
 const argv = yargs(hideBin(process.argv)).argv
-const isProduction = argv.env === 'production'
+const env = argv.env || 'development'
+const isProduction = env === 'production'
 
 const postCSS = postcss([
   autoprefixer,

@@ -10,7 +10,7 @@ export default (props) => {
   return <div className="grid-row">
     {links.map((tool) => {
       const { title, path, description } = tool
-      return <ProgressItem title={title} description={description} onClick={() => {
+      return <ProgressItem key={path} title={title} description={description} onClick={() => {
         history.push(path)
       }} />
     })}

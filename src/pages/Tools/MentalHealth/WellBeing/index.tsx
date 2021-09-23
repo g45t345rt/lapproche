@@ -48,7 +48,7 @@ export default () => {
       }}
     />}
     {step === 'done' && <div className="grid-row">
-      <h1>Merci d'avoir complete l'auto evaluation!</h1>
+      <h1>Merci d'avoir complete l'auto-évaluation!</h1>
       <div className="card grid-row">
         <h2>Interprétation des résultats</h2>
         <div>{sum} / 25</div>
@@ -110,7 +110,7 @@ export default () => {
       </div>
       <button type="button" onClick={() => setStep('answer')} className="home-blue-button">
         <i className="icon-white icon-replay" />
-        <div>Recommencer l'auto evaluation</div>
+        <div>Recommencer l'auto-évaluation</div>
       </button>
     </div>
     }
